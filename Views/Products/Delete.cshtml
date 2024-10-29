@@ -1,0 +1,22 @@
+﻿@model SecureShop.Models.Product
+
+@{
+    ViewData["Title"] = "Ta bort produkt";
+
+}
+
+<h2>Ta bort produkt</h2>
+
+<h3>Är du säker på att du vill ta bort följande produkt?</h3>
+
+<div>
+    <h4>Produkt : @Model.Name</h4>
+    <p>Pris: @Model.Price</p>
+    <p>Antal i lager : @Model.Stock</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Ja, ta bort</button>
+    <a asp-action="Index" class="btn btn-danger">Nej, tillbaka</a>
+</form>

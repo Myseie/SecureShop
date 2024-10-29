@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SecureShop.Models.Product>
+@using Microsoft.AspNetCore.Authorization
+
+@{
+    ViewData["Title"] = "Produktlista";
+}
+
+<h2>Produktlista</h2>
+
+
+<form asp-action="Index" method="get" class="form-inline mb-3">
+    <input type="text" name="search" class="form-control mr-2" placeholder="Sök efter en produkt..."/>
+    <button type="submit" class="btn btn-primary">Sök</button>
+</form>
+
+<a asp-action="Create" class="btn btn-success mb-3" asp-controller="Products" asp-area="" role="button">Lägg till en ny produkt </a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Namn</th>
+            <th>Beskrivning</th>
+            <th>Pris</th>
+            <th>Antal i lager</th>
+            <th>Kategori</th>
+            <th>Åtgärder</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.Stock</td>
+                <td>@item.Category</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Redigera</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Ta bort</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

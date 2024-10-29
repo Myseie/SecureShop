@@ -1,0 +1,23 @@
+﻿@model SecureShop.Models.ManageRolesViewModel
+@{
+    ViewBag.Title = "Hantera roller för användare";
+}
+
+<h2>Hantera roller för @Model.UserName</h2>
+
+<form asp-action="UpdateRoles" method="post">
+    <input type="hidden" asp-for="UserId" />
+    
+    <div class="form-group">
+        <label>Nuvarande roller :</label>
+        @foreach (var role in ViewBag.AllRoles as IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>)
+        {
+            <div>
+                <input type="checkbox" name="roles" value="@role.Name" @Model.Roles.Contains(role.Name) ? "checked" : "" />
+                <label>@role.Name</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Uppdatera roller</button>
+</form>
